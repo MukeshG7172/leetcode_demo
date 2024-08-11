@@ -18,7 +18,7 @@ const StudentsTable = () => {
   useEffect(() => {
     const fetchStudents = async () => {
       const { data, error } = await supabase
-        .from('weekly_contest_409')
+        .from('weekly_contest_410')
         .select('username, no_of_questions, question_ids, finish_time, status');
 
       if (error) {
