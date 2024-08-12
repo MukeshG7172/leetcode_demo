@@ -56,12 +56,13 @@ const StudentsTable = () => {
 
   return (
     <div>
-      <h2>Students Table</h2>
-      <table>
+    <h2 className='text-center pt-5'>Students Table</h2>
+    <div className='flex justify-center'>
+      <table className='mx-[250px]'>
         <thead>
           <tr>
-            <th>Username</th>
-            <th>
+            <th className='w-[239px]'>Username</th>
+            <th className='w-[150px]'>
               Department
               <select name="dept" onChange={handleFilterChange} defaultValue="">
                 <option value="">All</option>
@@ -69,7 +70,7 @@ const StudentsTable = () => {
                 <option value="ECE">ECE</option>
               </select>
             </th>
-            <th>
+            <th className='w-[150px]'>
               Section
               <select name="section" onChange={handleFilterChange} defaultValue="">
                 <option value="">All</option>
@@ -79,7 +80,7 @@ const StudentsTable = () => {
                 <option value="D">D</option>
               </select>
             </th>
-            <th>
+            <th className='w-[100px]'>
               Year
               <select name="year" onChange={handleFilterChange} defaultValue="">
                 <option value="">All</option>
@@ -87,7 +88,7 @@ const StudentsTable = () => {
                 <option value= "3" >3rd year</option>
               </select>
             </th>
-            <th>
+            <th className='w-[150px]'>
               No. of Questions
               <select name="no_of_questions" onChange={handleFilterChange} defaultValue="">
                 <option value="">All</option>
@@ -99,8 +100,8 @@ const StudentsTable = () => {
               </select>
             </th>
             <th>Question ID</th>
-            <th>Finish Time</th>
-            <th>
+            <th className='w-[100px]'>Finish Time</th>
+            <th className='w-[100px]'>
               Status
               <select name="status" onChange={handleFilterChange} defaultValue="">
                 <option value="">All</option>
@@ -125,6 +126,7 @@ const StudentsTable = () => {
           ))}
         </tbody>
       </table>
+    </div>
     </div>
   );
 };

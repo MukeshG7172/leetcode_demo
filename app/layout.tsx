@@ -1,3 +1,5 @@
+import SideNav from '../components/sidenav.js';
+
 export default function RootLayout({
   children,
 }: {
