@@ -20,7 +20,6 @@ const StudentsTable = () => {
       const { data, error } = await supabase
         .from('weekly_contest_410')
         .select('username, no_of_questions, question_ids, finish_time, status, dept, year, section');
-
       if (error) {
         console.error(error);
       } else {
@@ -50,8 +49,12 @@ const StudentsTable = () => {
     if (filters.year !== null) {
       filtered = filtered.filter((student) => student.year === filters.year);
     }
+
+    if (filters.section !== null) {
+      filtered = filtered.filter((student) => student.section === filters.section);
+    }
     setFilteredStudents(filtered);
-    console.log(students)
+    console.log(filtered)
   }, [filters, students]);
 
   return (
