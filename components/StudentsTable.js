@@ -5,7 +5,7 @@ import { supabase } from '../lib/supabaseClient';
 const StudentsTable = () => {
   const [students, setStudents] = useState([]);
   const [filteredStudents, setFilteredStudents] = useState([]);
-  const [filters, setFilters] = useState({ no_of_questions: null, status: null });
+  const [filters, setFilters] = useState({ no_of_questions: null, status: null, dept: null, section: null, year: null });
 
   const handleFilterChange = (event) => {
     const { name, value } = event.target;
@@ -19,7 +19,7 @@ const StudentsTable = () => {
     const fetchStudents = async () => {
       const { data, error } = await supabase
         .from('weekly_contest_410')
-        .select('username, no_of_questions, question_ids, finish_time, status');
+        .select('username, no_of_questions, question_ids, finish_time, status, dept, year, section');
 
       if (error) {
         console.error(error);
@@ -43,7 +43,15 @@ const StudentsTable = () => {
       filtered = filtered.filter((student) => student.status === filters.status);
     }
 
+    if (filters.dept !== null) {
+      filtered = filtered.filter((student) => student.dept === filters.dept);
+    }
+
+    if (filters.year !== null) {
+      filtered = filtered.filter((student) => student.year === filters.year);
+    }
     setFilteredStudents(filtered);
+    console.log(students)
   }, [filters, students]);
 
   return (
@@ -53,6 +61,32 @@ const StudentsTable = () => {
         <thead>
           <tr>
             <th>Username</th>
+            <th>
+              Department
+              <select name="dept" onChange={handleFilterChange} defaultValue="">
+                <option value="">All</option>
+                <option value="CSE">CSE</option>
+                <option value="ECE">ECE</option>
+              </select>
+            </th>
+            <th>
+              Section
+              <select name="section" onChange={handleFilterChange} defaultValue="">
+                <option value="">All</option>
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+                <option value="D">D</option>
+              </select>
+            </th>
+            <th>
+              Year
+              <select name="year" onChange={handleFilterChange} defaultValue="">
+                <option value="">All</option>
+                <option value= "2" >2nd year</option>
+                <option value= "3" >3rd year</option>
+              </select>
+            </th>
             <th>
               No. of Questions
               <select name="no_of_questions" onChange={handleFilterChange} defaultValue="">
@@ -80,6 +114,9 @@ const StudentsTable = () => {
           {filteredStudents.map((student, index) => (
             <tr key={index}>
               <td>{student.username}</td>
+              <td>{student.dept}</td>
+              <td>{student.section}</td>
+              <td>{student.year}</td>
               <td>{student.no_of_questions}</td>
               <td>{student.question_ids}</td>
               <td>{student.finish_time}</td>
