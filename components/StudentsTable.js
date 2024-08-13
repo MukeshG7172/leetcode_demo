@@ -318,6 +318,7 @@
 // };
 
 // export default StudentsTable;
+
 "use client";
 import { useEffect, useState } from 'react';
 import { supabase } from '../lib/supabaseClient';
@@ -326,8 +327,8 @@ const StudentsTable = () => {
   const [students, setStudents] = useState([]);
   const [filteredStudents, setFilteredStudents] = useState([]);
   const [filters, setFilters] = useState({ no_of_questions: null, status: null, dept: null, section: null, year: null });
-  const [showFilters, setShowFilters] = useState(false); 
-  const [table, setTable] = useState('weekly_contest_410'); 
+  const [showFilters, setShowFilters] = useState(false); // New state for filter visibility
+  const [table, setTable] = useState('weekly_contest_410'); // Default to contest 410
 
   const handleFilterChange = (event) => {
     const { name, value } = event.target;
@@ -338,8 +339,7 @@ const StudentsTable = () => {
   };
 
   const handleContestChange = (event) => {
-    console.log(event.target.value);
-    setTable(event.target.value); 
+    setTable(event.target.value); // Update the table state with the selected contest
   };
 
   useEffect(() => {
@@ -348,19 +348,17 @@ const StudentsTable = () => {
     const fetchStudents = async () => {
       const { data, error } = await supabase
         .from(table)
-        .select('username, no_of_questions, question_ids, finish_time, status, dept, year, section, rank')
-        .order('rank', { ascending: true }); // Sort by rank
-
+        .select('username, no_of_questions, question_ids, finish_time, status, dept, year, section, rank');
       if (error) {
         console.error(error);
       } else {
         setStudents(data);
-        setFilteredStudents(data); 
+        setFilteredStudents(data); // Initially display all students
       }
     };
 
     fetchStudents();
-  }, [table]);
+  }, [table]); // Fetch data whenever the table state changes
 
   useEffect(() => {
     let filtered = students;
@@ -386,20 +384,25 @@ const StudentsTable = () => {
     }
 
     setFilteredStudents(filtered);
+    console.log(filtered);
   }, [filters, students]);
 
   const toggleFilters = () => {
     setShowFilters((prev) => !prev);
   };
 
+  const getFormattedTableName = (tableName) => {
+    const contestNumber = tableName.split('_').pop(); // Extract the contest number from the table name
+    return (`Weekly Contest ${contestNumber}`);
+  };
+
   return (
     <div>
-      <select className="h-[70px] text-2xl mr-10 rounded" name="contest" value={table} onChange={handleContestChange} defaultValue="weekly_contest_410">
+      <select className="h-[70px] text-2xl mr-10 rounded" name="contest" onChange={handleContestChange} defaultValue="weekly_contest_410">
         <option value="weekly_contest_410">Contest 410</option>
         <option value="weekly_contest_409">Contest 409</option>
-        {/* Add more contests as needed */}
       </select>
-      <h2 className="text-center pt-5 text-6xl">{table.replace('_', ' ')}</h2>
+      <h2 className="text-center pt-5 text-6xl">{getFormattedTableName(table)}</h2> {/* Updated heading */}
       <center>
         <button className='border-black border-2 pl-5 pr-5 mt-10 w-30 rounded h-[70px] text-3xl' onClick={toggleFilters}>Filter</button>
       </center>
