@@ -1,4 +1,4 @@
-import SideNav from '../components/sidenav.js';
+import SideNav from '../components/sidenav.jsx';
 
 export default function RootLayout({
   children,
@@ -7,7 +7,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+      <SideNav />
+        {children}
+      </body>
     </html>
   );
 }

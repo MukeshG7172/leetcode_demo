@@ -1,5 +1,6 @@
 import StudentsTable from '../components/StudentsTable';
 import './global.css';
+import Sidenav from '@/components/sidenav';
 
 export default function Page() {
   return (

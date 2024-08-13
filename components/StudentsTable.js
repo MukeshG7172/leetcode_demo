@@ -50,6 +50,10 @@ const StudentsTable = () => {
     if (filters.year !== null) {
       filtered = filtered.filter((student) => student.year === filters.year);
     }
+
+    if (filters.section !== null) {
+      filtered = filtered.filter((student) => student.setion === filters.section);
+    }
     setFilteredStudents(filtered);
     console.log(students)
   }, [filters, students]);
@@ -58,6 +62,15 @@ const StudentsTable = () => {
     <div>
     <h2 className='text-center pt-5'>Students Table</h2>
     <div className='flex justify-center'>
+      <div>
+      <select name="section" onChange={handleFilterChange} defaultValue="">
+          <option value="">All</option>
+          <option value="A">A</option>
+          <option value="B">B</option>
+          <option value="C">C</option>
+          <option value="D">D</option>
+      </select>
+      </div>
       <table className='mx-[250px]'>
         <thead>
           <tr>
@@ -72,13 +85,13 @@ const StudentsTable = () => {
             </th>
             <th className='w-[150px]'>
               Section
-              <select name="section" onChange={handleFilterChange} defaultValue="">
+              {/* <select name="section" onChange={handleFilterChange} defaultValue="">
                 <option value="">All</option>
                 <option value="A">A</option>
                 <option value="B">B</option>
                 <option value="C">C</option>
                 <option value="D">D</option>
-              </select>
+              </select> */}
             </th>
             <th className='w-[100px]'>
               Year
