@@ -247,7 +247,7 @@ const StudentsTable = () => {
   const [showFilters, setShowFilters] = useState(false);
   const [table, setTable] = useState('weekly_contest_410');
   const [currentPage, setCurrentPage] = useState(1);
-  const [studentsPerPage] = useState(10);
+  const [studentsPerPage] = useState(25);
 
   const handleFilterChange = (event) => {
     const { name, value } = event.target;
